@@ -38,6 +38,8 @@ widget = ContainerWidget(
 )
 
 while True:
+    window.clear()
+
     get_weather()
     widget.draw(window)
     window.save()

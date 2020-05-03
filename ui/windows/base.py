@@ -7,6 +7,9 @@ class Window(ABC):
         self.width = width
         self.height = height
 
+    def clear(self):
+        pass
+
     @abstractmethod
     def rectangle(self, left, top, right, bottom):
         raise NotImplementedError

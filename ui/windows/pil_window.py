@@ -8,6 +8,9 @@ class PilWindow(Window):
         super().__init__(image_path, width, height)
         self._image = Image.new(mode="1", size=(width, height), color=1)
 
+    def clear(self):
+        self._image = Image.new(mode="1", size=self._image.size, color=1)
+
     def rectangle(self, left, top, right, bottom):
         draw = ImageDraw.Draw(self._image)
         draw.rectangle([left, top, right, bottom], fill=0)
