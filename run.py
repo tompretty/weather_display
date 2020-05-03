@@ -1,8 +1,10 @@
 import os
+import time
 
 from dotenv import load_dotenv
 
-from displays import DebugDisplay, WaveshareEpdDisplay
+from api.run import get_weather
+from displays import DebugDisplay
 from ui.widgets import (
     ContainerWidget,
     CurrentTemperatureTextWidget,
@@ -15,6 +17,8 @@ load_dotenv()
 
 
 display = DebugDisplay(image_path=os.getenv("UI_IMAGE_PATH"))
+display.init()
+
 window = PilWindow(image_path=os.getenv("UI_IMAGE_PATH"), width=264, height=176)
 widget = ContainerWidget(
     size=(264, 176),
@@ -33,6 +37,9 @@ widget = ContainerWidget(
     ),
 )
 
-widget.draw(window)
-window.save()
-display.draw()
+while True:
+    get_weather()
+    widget.draw(window)
+    window.save()
+    display.draw()
+    time.sleep(5 * 60)

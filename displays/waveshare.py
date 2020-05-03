@@ -13,6 +13,7 @@ class WaveshareEpdDisplay(Display):
 
     def init(self):
         self.epd.init()
+        self.epd.Clear()
 
     def draw(self):
         self.epd.Clear()
