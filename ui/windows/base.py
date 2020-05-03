@@ -2,6 +2,11 @@ from abc import ABC, abstractmethod
 
 
 class Window(ABC):
+    def __init__(self, image_path, width, height):
+        self.image_path = image_path
+        self.width = width
+        self.height = height
+
     @abstractmethod
     def rectangle(self, left, top, right, bottom):
         raise NotImplementedError

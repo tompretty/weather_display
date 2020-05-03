@@ -1,5 +1,8 @@
-import json
+import os
 
+from dotenv import load_dotenv
+
+from displays import DebugDisplay, WaveshareEpdDisplay
 from ui.widgets import (
     ContainerWidget,
     CurrentTemperatureTextWidget,
@@ -8,7 +11,11 @@ from ui.widgets import (
 )
 from ui.windows import PilWindow
 
-window = PilWindow(width=264, height=176)
+load_dotenv()
+
+
+display = DebugDisplay(image_path=os.getenv("UI_IMAGE_PATH"))
+window = PilWindow(image_path=os.getenv("UI_IMAGE_PATH"), width=264, height=176)
 widget = ContainerWidget(
     size=(264, 176),
     child=HorizontalStackWidget(
@@ -27,4 +34,5 @@ widget = ContainerWidget(
 )
 
 widget.draw(window)
-window.save("ui.png")
+window.save()
+display.draw()

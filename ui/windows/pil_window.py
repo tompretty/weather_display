@@ -4,7 +4,8 @@ from .base import Window
 
 
 class PilWindow(Window):
-    def __init__(self, width, height):
+    def __init__(self, image_path, width, height):
+        super().__init__(image_path, width, height)
         self._image = Image.new(mode="1", size=(width, height), color=1)
 
     def rectangle(self, left, top, right, bottom):
@@ -25,5 +26,5 @@ class PilWindow(Window):
         im = Image.open(path)
         self._image.paste(im, box=(x, y))
 
-    def save(self, path):
-        self._image.save(fp=path)
+    def save(self):
+        self._image.save(fp=self.image_path)
