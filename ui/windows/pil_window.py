@@ -1,6 +1,6 @@
-from .base import Window
-
 from PIL import Image, ImageDraw, ImageFont
+
+from .base import Window
 
 
 class PilWindow(Window):

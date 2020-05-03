@@ -1,7 +1,7 @@
-from .base import Window
-
-from wand.image import Image
 from wand.drawing import Drawing
+from wand.image import Image
+
+from .base import Window
 
 
 class WandWindow(Window):
