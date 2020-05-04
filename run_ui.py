@@ -3,7 +3,7 @@ import time
 
 from dotenv import load_dotenv
 
-from displays import DebugDisplay
+from ui.displays import DebugDisplay
 from ui.widgets import (
     ContainerWidget,
     CurrentPollenCountTextWidget,
