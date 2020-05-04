@@ -1,4 +1,5 @@
 from .container import ContainerWidget
+from .current_pollen_count_text import CurrentPollenCountTextWidget
 from .current_temperature_text_widget import CurrentTemperatureTextWidget
 from .current_weather_icon_widget import CurrentWeatherIconWidget
 from .horizontal_stack import HorizontalStackWidget
