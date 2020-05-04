@@ -5,5 +5,6 @@ from .horizontal_stack import HorizontalStackWidget
 from .image import ImageWidget
 from .rectangle import RectangleWidget
 from .sunset_text_widget import SunsetTimeWidget
+from .tabbed import TabbedWidget
 from .text import TextWidget
 from .vertical_stack import VerticalStackWidget
