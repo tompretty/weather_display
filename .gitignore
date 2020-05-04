@@ -143,3 +143,6 @@ cython_debug/
 # project
 current-weather.json
 ui.png
+
+*.json
+*.txt
