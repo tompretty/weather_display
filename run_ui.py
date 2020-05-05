@@ -2,6 +2,7 @@ import os
 import time
 
 from dotenv import load_dotenv
+from rich.console import Console
 
 from ui.displays import DebugDisplay
 from ui.widgets import (
@@ -25,6 +26,8 @@ UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
 
 BBC_WEATHER_SAVE_PATH = os.getenv("BBC_WEATHER_SAVE_PATH")
 OPEN_WEATHER_SAVE_PATH = os.getenv("OPEN_WEATHER_SAVE_PATH")
+
+console = Console()
 
 
 display = DebugDisplay(image_path=UI_IMAGE_PATH)
@@ -107,4 +110,6 @@ while True:
     widget.draw(window)
     window.save()
     display.draw()
+
+    console.log("Updated display")
     time.sleep(UI_UPDATE_INTERVAL)

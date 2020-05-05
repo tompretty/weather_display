@@ -5,6 +5,8 @@ from .base import Api
 
 
 class BbcWeatherApi(Api):
+    name = "BBC Weather"
+
     def fetch_latest(self):
         url = "https://www.bbc.co.uk/weather/2640729"
         resp = requests.get(url)
