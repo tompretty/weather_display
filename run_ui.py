@@ -42,7 +42,7 @@ widget = TabbedWidget(
                 children=[
                     CurrentPollenCountTextWidget(
                         weather_path=BBC_WEATHER_SAVE_PATH,
-                        font_path="./assets/fonts/Roboto-Bold.ttf",
+                        font_path="./assets/fonts/Roboto-Medium.ttf",
                         font_size=96,
                     ),
                     ImageWidget(size=(64, 64), path="./assets/icons/pollen.png"),
