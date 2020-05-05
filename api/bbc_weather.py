@@ -1,15 +1,20 @@
+import os
+
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 
 from .base import Api
+
+load_dotenv()
 
 
 class BbcWeatherApi(Api):
     name = "BBC Weather"
+    URL = os.getenv("BBC_WEATHER_URL")
 
     def fetch_latest(self):
-        url = "https://www.bbc.co.uk/weather/2640729"
-        resp = requests.get(url)
+        resp = requests.get(BbcWeatherApi.URL)
         soup = BeautifulSoup(resp.content, "html.parser")
 
         pollen = soup.find_all(

@@ -45,6 +45,7 @@ OPEN_WEATHER_CITY_ID="<your-open-weather-city-id>"
 OPEN_WEATHER_SAVE_PATH="./open-weather.json"  # where the api results are saved
 
 BBC_WEATHER_SAVE_PATH="./bbc.txt"  # where the api results are saved
+BBC_WEATHER_URL="https://www.bbc.co.uk/weather/<your-city-code>"
 
 API_UPDATE_INTERVAL=300  # how often to query the apis (every 5 mins)
 
