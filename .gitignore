@@ -141,8 +141,7 @@ cython_debug/
 .DS_STORE
 
 # project
-current-weather.json
-ui.png
-
 *.json
 *.txt
+*.png
+*.pkl
