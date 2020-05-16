@@ -14,6 +14,12 @@ class Widget:
     def height(self, window):
         return self.extent(window)[1]
 
+    def state(self):
+        pass
+
+    def set_state(self, state):
+        pass
+
     @property
     def x(self):
         return int(self.position[0])

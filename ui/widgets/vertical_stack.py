@@ -7,6 +7,13 @@ class VerticalStackWidget(Widget):
         self.children = children
         self.padding = padding
 
+    def state(self):
+        return [child.state() for child in self.children]
+
+    def set_state(self, state):
+        for child, child_state in zip(self.children, state):
+            child.set_state(child_state)
+
     def draw(self, window):
         self.position_children(window)
         self.draw_children(window)

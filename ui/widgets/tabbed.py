@@ -7,6 +7,14 @@ class TabbedWidget(Widget):
         self.children = children
         self.current_tab = 0
 
+    def state(self):
+        return [self.current_tab, [child.state() for child in self.children]]
+
+    def set_state(self, state):
+        self.current_tab = state[0]
+        for child, child_state in zip(self.children, state[1:]):
+            child.set_state(child_state)
+
     def draw(self, window):
         self.draw_current_tab(window)
         self.increment_current_tab()
