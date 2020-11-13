@@ -11,17 +11,9 @@ from ui.windows import PilWindow
 
 load_dotenv()
 
-UI_IMAGE_PATH = os.getenv("UI_IMAGE_PATH")
 UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
 
-BBC_WEATHER_SAVE_PATH = os.getenv("BBC_WEATHER_SAVE_PATH")
-OPEN_WEATHER_SAVE_PATH = os.getenv("OPEN_WEATHER_SAVE_PATH")
-
-console = Console()
-
-display = MatplotlibDisplay(image_path=UI_IMAGE_PATH)
-display.init()
-
+window = PilWindow(width=264, height=176)
 widget = TabbedWidget(
     children=[
         CurrentWeatherWidget(
@@ -31,15 +23,17 @@ widget = TabbedWidget(
         SunsetWidget(data_source=DebugTimestampDataSource()),
     ]
 )
+display = MatplotlibDisplay()
+display.init()
 
-window = PilWindow(image_path=UI_IMAGE_PATH, width=264, height=176)
+
+console = Console()
 
 while True:
     window.clear()
 
     widget.draw(window)
-    window.save()
-    display.draw()
+    display.draw(window)
 
     console.log("Updated display")
     time.sleep(UI_UPDATE_INTERVAL)

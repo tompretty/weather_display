@@ -2,8 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Window(ABC):
-    def __init__(self, image_path, width, height):
-        self.image_path = image_path
+    def __init__(self, width, height):
         self.width = width
         self.height = height
 
@@ -27,5 +26,5 @@ class Window(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def save(self, path):
+    def get_pil_image(self):
         raise NotImplementedError

@@ -4,10 +4,10 @@ from .base import Display
 
 
 class WaveshareEpdDisplay(Display):
-    def __init__(self, image_path):
+    def __init__(self):
         from .waveshare_epd.epd2in7b import EPD
 
-        super().__init__(image_path)
+        super().__init__()
 
         self.epd = EPD()
 
@@ -15,10 +15,10 @@ class WaveshareEpdDisplay(Display):
         self.epd.init()
         self.epd.Clear()
 
-    def draw(self):
+    def draw(self, window):
         self.epd.Clear()
 
-        black_image = Image.open(self.image_path)
+        black_image = window.get_pil_image()
         red_image = Image.new(mode="1", size=black_image.size, color=1)
 
         self.epd.display(self.epd.getbuffer(black_image), self.epd.getbuffer(red_image))
