@@ -4,7 +4,7 @@ import time
 from dotenv import load_dotenv
 from rich.console import Console
 
-from ui.displays import DebugDisplay
+from ui.displays import MatplotlibDisplay
 from ui.widgets import (
     ContainerWidget,
     CurrentPollenCountTextWidget,
@@ -29,26 +29,11 @@ OPEN_WEATHER_SAVE_PATH = os.getenv("OPEN_WEATHER_SAVE_PATH")
 
 console = Console()
 
-
-display = DebugDisplay(image_path=UI_IMAGE_PATH)
+display = MatplotlibDisplay(image_path=UI_IMAGE_PATH)
 display.init()
 
 widget = TabbedWidget(
     children=[
-        ContainerWidget(
-            size=(264, 176),
-            child=HorizontalStackWidget(
-                padding=25,
-                children=[
-                    CurrentPollenCountTextWidget(
-                        weather_path=BBC_WEATHER_SAVE_PATH,
-                        font_path="./assets/fonts/Roboto-Medium.ttf",
-                        font_size=96,
-                    ),
-                    ImageWidget(size=(64, 64), path="./assets/icons/pollen.png"),
-                ],
-            ),
-        ),
         ContainerWidget(
             size=(264, 176),
             child=HorizontalStackWidget(
@@ -79,22 +64,6 @@ widget = TabbedWidget(
                         weather_path=os.getenv("OPEN_WEATHER_SAVE_PATH"),
                         font_path="./assets/fonts/Roboto-Medium.ttf",
                         font_size=72,
-                    ),
-                ],
-            ),
-        ),
-        ContainerWidget(
-            size=(264, 176),
-            child=HorizontalStackWidget(
-                padding=25,
-                children=[
-                    CurrentTemperatureTextWidget(
-                        weather_path=OPEN_WEATHER_SAVE_PATH,
-                        font_path="./assets/fonts/Roboto-Medium.ttf",
-                        font_size=96,
-                    ),
-                    CurrentWeatherIconWidget(
-                        weather_path=OPEN_WEATHER_SAVE_PATH, size=(64, 64)
                     ),
                 ],
             ),

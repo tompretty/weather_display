@@ -13,7 +13,6 @@ OPEN_WEATHER_SAVE_PATH = os.getenv("OPEN_WEATHER_SAVE_PATH")
 API_UPDATE_INTERVAL = int(os.getenv("API_UPDATE_INTERVAL"))
 
 weather_apis = [
-    BbcWeatherApi(save_path=BBC_WEATHER_SAVE_PATH),
     OpenWeatherApi(save_path=OPEN_WEATHER_SAVE_PATH),
 ]
 
