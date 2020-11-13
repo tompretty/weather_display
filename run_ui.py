@@ -6,18 +6,7 @@ from rich.console import Console
 
 from data import DebugNumberDataSource, DebugTimestampDataSource, DebugWeatherDataSource
 from ui.displays import MatplotlibDisplay
-from ui.widgets import (
-    ContainerWidget,
-    CurrentPollenCountTextWidget,
-    CurrentTemperatureTextWidget,
-    CurrentWeatherIconWidget,
-    HorizontalStackWidget,
-    ImageWidget,
-    SunsetTimeWidget,
-    TabbedWidget,
-    TextWidget,
-    VerticalStackWidget,
-)
+from ui.widgets import CurrentWeatherWidget, SunsetWidget, TabbedWidget
 from ui.windows import PilWindow
 
 load_dotenv()
@@ -35,40 +24,11 @@ display.init()
 
 widget = TabbedWidget(
     children=[
-        ContainerWidget(
-            size=(264, 176),
-            child=HorizontalStackWidget(
-                padding=25,
-                children=[
-                    CurrentTemperatureTextWidget(
-                        font_path="./assets/fonts/Roboto-Medium.ttf",
-                        font_size=96,
-                        data_source=DebugNumberDataSource(),
-                    ),
-                    CurrentWeatherIconWidget(
-                        data_source=DebugWeatherDataSource(), size=(64, 64)
-                    ),
-                ],
-            ),
+        CurrentWeatherWidget(
+            temperature_data_source=DebugNumberDataSource(),
+            weather_data_source=DebugWeatherDataSource(),
         ),
-        ContainerWidget(
-            size=(264, 176),
-            child=VerticalStackWidget(
-                padding=5,
-                children=[
-                    TextWidget(
-                        body="Sunset",
-                        font_path="./assets/fonts/Roboto-Regular.ttf",
-                        font_size=24,
-                    ),
-                    SunsetTimeWidget(
-                        data_source=DebugTimestampDataSource(),
-                        font_path="./assets/fonts/Roboto-Medium.ttf",
-                        font_size=72,
-                    ),
-                ],
-            ),
-        ),
+        SunsetWidget(data_source=DebugTimestampDataSource()),
     ]
 )
 
