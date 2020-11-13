@@ -4,6 +4,7 @@ import time
 from dotenv import load_dotenv
 from rich.console import Console
 
+from data import DebugNumberDataSource, DebugTimestampDataSource, DebugWeatherDataSource
 from ui.displays import MatplotlibDisplay
 from ui.widgets import (
     ContainerWidget,
@@ -40,12 +41,12 @@ widget = TabbedWidget(
                 padding=25,
                 children=[
                     CurrentTemperatureTextWidget(
-                        weather_path=OPEN_WEATHER_SAVE_PATH,
                         font_path="./assets/fonts/Roboto-Medium.ttf",
                         font_size=96,
+                        data_source=DebugNumberDataSource(),
                     ),
                     CurrentWeatherIconWidget(
-                        weather_path=OPEN_WEATHER_SAVE_PATH, size=(64, 64)
+                        data_source=DebugWeatherDataSource(), size=(64, 64)
                     ),
                 ],
             ),
@@ -61,7 +62,7 @@ widget = TabbedWidget(
                         font_size=24,
                     ),
                     SunsetTimeWidget(
-                        weather_path=os.getenv("OPEN_WEATHER_SAVE_PATH"),
+                        data_source=DebugTimestampDataSource(),
                         font_path="./assets/fonts/Roboto-Medium.ttf",
                         font_size=72,
                     ),

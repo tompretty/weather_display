@@ -1,6 +1,7 @@
 class Widget:
-    def __init__(self, position):
+    def __init__(self, position, data_source=None):
         self.position = position
+        self.data_source = data_source
 
     def draw(self, image):
         raise NotImplementedError

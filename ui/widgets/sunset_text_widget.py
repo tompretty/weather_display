@@ -5,9 +5,8 @@ from .text import TextWidget
 
 
 class SunsetTimeWidget(TextWidget):
-    def __init__(self, weather_path, font_path, font_size):
-        super().__init__("", font_path, font_size)
-        self.weather_path = weather_path
+    def __init__(self, data_source, font_path, font_size):
+        super().__init__("", font_path, font_size, data_source=data_source)
 
     def draw(self, window):
         self.update_text()
@@ -18,7 +17,5 @@ class SunsetTimeWidget(TextWidget):
         return super().extent(window)
 
     def update_text(self):
-        with open(self.weather_path) as f:
-            data = json.load(f)
-        dt = datetime.fromtimestamp(data["sys"]["sunset"])
+        dt = datetime.fromtimestamp(self.data_source.get_data())
         self.body = dt.strftime("%H:%M")
