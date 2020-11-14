@@ -9,7 +9,7 @@ from data import (
     OpenWeatherTempDataSource,
     OpenWeatherWeatherDataSource,
 )
-from log import ConsoleLogger
+from log import CompositeLogger, ConsoleLogger, EmailLogger
 from ui.displays import MatplotlibDisplay
 from ui.widgets import CurrentWeatherWidget, SunsetWidget, TabbedWidget
 from ui.windows import PilWindow
@@ -19,7 +19,11 @@ load_dotenv()
 UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
 
 open_weather_api = CachedApi(
-    api=LoggedApi(api=OpenWeatherApi(), logger=ConsoleLogger()), cache_time_in_seconds=5
+    api=LoggedApi(
+        api=OpenWeatherApi(),
+        logger=CompositeLogger(loggers=[ConsoleLogger(), EmailLogger()]),
+    ),
+    cache_time_in_seconds=5,
 )
 
 window = PilWindow(width=264, height=176)

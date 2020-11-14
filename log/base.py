@@ -1,11 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 class Logger(ABC):
-    @abstractmethod
     def log_success(self, message):
-        raise NotImplementedError
+        pass
 
-    @abstractmethod
     def log_error(self, message):
-        raise NotImplementedError
+        pass

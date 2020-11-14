@@ -17,5 +17,5 @@ class OpenWeatherApi(Api):
     URL = BASE_URL.format(CITY_ID, API_KEY)
 
     def fetch_latest(self):
-        resp = requests.get(OpenWeatherApi.URL)
+        resp = requests.get(OpenWeatherApi.URL, timeout=5)
         return resp.json()
