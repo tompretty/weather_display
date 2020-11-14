@@ -7,7 +7,7 @@ def now():
     return time.time()
 
 
-class SWRCachedApi(Api):
+class CachedApi(Api):
     def __init__(self, api, cache_time_in_seconds):
         self.api = api
         self.cache_time_in_seconds = cache_time_in_seconds
@@ -16,7 +16,6 @@ class SWRCachedApi(Api):
 
     def fetch_latest(self):
         if self.is_stale():
-            # self._start_background_refresh()
             self.refresh()
         return self.cached_response
 
