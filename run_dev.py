@@ -17,13 +17,14 @@ from ui.windows import PilWindow
 load_dotenv()
 
 UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
+API_CACHE_TIME = int(os.getenv("API_CACHE_TIME"))
 
 open_weather_api = CachedApi(
     api=LoggedApi(
         api=OpenWeatherApi(),
         logger=CompositeLogger(loggers=[ConsoleLogger(), EmailLogger()]),
     ),
-    cache_time_in_seconds=5,
+    cache_time_in_seconds=API_CACHE_TIME,
 )
 
 window = PilWindow(width=264, height=176)
