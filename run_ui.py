@@ -4,7 +4,7 @@ import time
 from dotenv import load_dotenv
 from rich.console import Console
 
-from api import DebugOpenWeatherApi
+from api import OpenWeatherApi, SWRCachedApi
 from data import (
     OpenWeatherSunsetDataSource,
     OpenWeatherTempDataSource,
@@ -18,7 +18,7 @@ load_dotenv()
 
 UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
 
-open_weather_api = DebugOpenWeatherApi()
+open_weather_api = SWRCachedApi(api=OpenWeatherApi(), cache_time_in_seconds=5)
 
 window = PilWindow(width=264, height=176)
 widget = TabbedWidget(

@@ -1,4 +1,3 @@
-import json
 import os
 
 import requests
@@ -10,8 +9,6 @@ load_dotenv()
 
 
 class OpenWeatherApi(Api):
-    name = "Open Weather"
-
     BASE_URL = (
         "https://api.openweathermap.org/data/2.5/weather?id={}&appid={}&units=metric"
     )
@@ -20,6 +17,6 @@ class OpenWeatherApi(Api):
     URL = BASE_URL.format(CITY_ID, API_KEY)
 
     def fetch_latest(self):
+        print("fetching open weather api")
         resp = requests.get(OpenWeatherApi.URL)
-        with open(self.save_path, "w") as f:
-            json.dump(resp.json(), f)
+        return resp.json()
