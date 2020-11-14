@@ -4,7 +4,12 @@ import time
 from dotenv import load_dotenv
 from rich.console import Console
 
-from data import DebugNumberDataSource, DebugTimestampDataSource, DebugWeatherDataSource
+from api import DebugOpenWeatherApi
+from data import (
+    OpenWeatherSunsetDataSource,
+    OpenWeatherTempDataSource,
+    OpenWeatherWeatherDataSource,
+)
 from ui.displays import MatplotlibDisplay
 from ui.widgets import CurrentWeatherWidget, SunsetWidget, TabbedWidget
 from ui.windows import PilWindow
@@ -13,14 +18,16 @@ load_dotenv()
 
 UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
 
+open_weather_api = DebugOpenWeatherApi()
+
 window = PilWindow(width=264, height=176)
 widget = TabbedWidget(
     children=[
         CurrentWeatherWidget(
-            temperature_data_source=DebugNumberDataSource(),
-            weather_data_source=DebugWeatherDataSource(),
+            temperature_data_source=OpenWeatherTempDataSource(api=open_weather_api),
+            weather_data_source=OpenWeatherWeatherDataSource(api=open_weather_api),
         ),
-        SunsetWidget(data_source=DebugTimestampDataSource()),
+        SunsetWidget(data_source=OpenWeatherSunsetDataSource(api=open_weather_api)),
     ]
 )
 display = MatplotlibDisplay()

@@ -1,3 +1,6 @@
 from .debug_number import DebugNumberDataSource
 from .debug_timestamp import DebugTimestampDataSource
 from .debug_weather import DebugWeatherDataSource
+from .open_weather_sunset import OpenWeatherSunsetDataSource
+from .open_weather_temp import OpenWeatherTempDataSource
+from .open_weather_weather import OpenWeatherWeatherDataSource
