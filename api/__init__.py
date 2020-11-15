@@ -1,3 +1,4 @@
+from .base import Api
 from .cached import CachedApi
 from .debug_open_weather import DebugOpenWeatherApi
 from .logged import LoggedApi
