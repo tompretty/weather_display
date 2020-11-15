@@ -1,8 +1,13 @@
+from typing import Any
+
 from .base import Api
 
 
 class DebugOpenWeatherApi(Api):
-    def fetch_latest(self):
+    """Debug Open Weather API - Returns a hardcode mock response.
+    """
+
+    def fetch_latest(self) -> Any:
         return {
             "coord": {"lon": -1.26, "lat": 51.75},
             "weather": [
