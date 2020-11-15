@@ -1,21 +1,27 @@
-from PIL import Image
+from PIL import Image  # type: ignore
+from ui.windows import Window
 
 from .base import Display
 
 
 class WaveshareEpdDisplay(Display):
-    def __init__(self):
+    """Waveshare EPD display - Renders an image onto a waveshare epd e-ink display.
+
+    Uses the epd library provided by waveshare to render an image to the display.
+    """
+
+    def __init__(self) -> None:
         from .waveshare_epd.epd2in7b import EPD
 
         super().__init__()
 
         self.epd = EPD()
 
-    def init(self):
+    def init(self) -> None:
         self.epd.init()
         self.epd.Clear()
 
-    def draw(self, window):
+    def draw(self, window: Window) -> None:
         self.epd.Clear()
 
         black_image = window.get_pil_image()

@@ -31,6 +31,7 @@ import logging
 import os
 import sys
 import time
+from typing import Union
 
 
 class RaspberryPi:
@@ -41,8 +42,8 @@ class RaspberryPi:
     BUSY_PIN = 24
 
     def __init__(self):
-        import spidev
-        import RPi.GPIO
+        import RPi.GPIO  # type: ignore
+        import spidev  # type: ignore
 
         self.GPIO = RPi.GPIO
 
@@ -107,7 +108,7 @@ class JetsonNano:
         if self.SPI is None:
             raise RuntimeError("Cannot find sysfs_software_spi.so")
 
-        import Jetson.GPIO
+        import Jetson.GPIO  # type: ignore
 
         self.GPIO = Jetson.GPIO
 
@@ -145,7 +146,7 @@ class JetsonNano:
 
 
 if os.path.exists("/sys/bus/platform/drivers/gpiomem-bcm2835"):
-    implementation = RaspberryPi()
+    implementation = RaspberryPi()  # type: Union[RaspberryPi, JetsonNano]
 else:
     implementation = JetsonNano()
 
