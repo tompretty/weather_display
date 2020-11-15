@@ -22,6 +22,11 @@ def get_logger(name):
 
 
 class ConsoleLogger(Logger):
+    """Console logger - Logs messages to the console.
+
+    Internally, this uses pythons logging module for logging.
+    """
+
     def __init__(self):
         super().__init__()
         self.logger = get_logger("weather_display")
