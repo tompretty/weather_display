@@ -16,8 +16,13 @@ from ui.windows import PilWindow
 
 load_dotenv()
 
-UI_UPDATE_INTERVAL = int(os.getenv("UI_UPDATE_INTERVAL"))
-API_CACHE_TIME = int(os.getenv("API_CACHE_TIME"))
+DEFAULT_UI_UPDATE_INTERVAL = 30
+DEFAULT_API_CACHE_TIME = 300
+
+UI_UPDATE_INTERVAL = int(
+    os.getenv("UI_UPDATE_INTERVAL", default=DEFAULT_UI_UPDATE_INTERVAL)
+)
+API_CACHE_TIME = int(os.getenv("API_CACHE_TIME", default=DEFAULT_UI_UPDATE_INTERVAL))
 
 open_weather_api = CachedApi(
     api=LoggedApi(
