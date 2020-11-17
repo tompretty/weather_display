@@ -3,7 +3,7 @@ import time
 
 from dotenv import load_dotenv
 
-from api import CachedApi, LoggedApi, OpenWeatherApi
+from api import CachedApi, LoggedApi, OpenWeatherApi, RetryApi
 from data import (
     OpenWeatherSunsetDataSource,
     OpenWeatherTempDataSource,
@@ -18,16 +18,24 @@ load_dotenv()
 
 DEFAULT_UI_UPDATE_INTERVAL = 30
 DEFAULT_API_CACHE_TIME = 300
+DEFAULT_API_MAX_TRIES = 10
+DEFAULT_API_RETRY_DELAY = 10
 
 UI_UPDATE_INTERVAL = int(
     os.getenv("UI_UPDATE_INTERVAL", default=DEFAULT_UI_UPDATE_INTERVAL)
 )
-API_CACHE_TIME = int(os.getenv("API_CACHE_TIME", default=DEFAULT_UI_UPDATE_INTERVAL))
+API_CACHE_TIME = int(os.getenv("API_CACHE_TIME", default=DEFAULT_API_CACHE_TIME))
+API_MAX_TRIES = int(os.getenv("API_MAX_TRIES", default=DEFAULT_API_MAX_TRIES))
+API_RETRY_DELAY = int(os.getenv("API_RETRY_DELAY", default=DEFAULT_API_RETRY_DELAY))
 
 open_weather_api = CachedApi(
-    api=LoggedApi(
-        api=OpenWeatherApi(),
-        logger=CompositeLogger(loggers=[ConsoleLogger(), EmailLogger()]),
+    api=RetryApi(
+        api=LoggedApi(
+            api=OpenWeatherApi(),
+            logger=CompositeLogger(loggers=[ConsoleLogger(), EmailLogger()]),
+        ),
+        max_tries=API_MAX_TRIES,
+        retry_delay_in_seconds=API_RETRY_DELAY,
     ),
     cache_time_in_seconds=API_CACHE_TIME,
 )
