@@ -9,12 +9,6 @@ class ContainerWidget(Widget):
         self.center_x = center_x
         self.center_y = center_y
 
-    def state(self):
-        return self.child.state()
-
-    def set_state(self, state):
-        self.child.set_state(state)
-
     def draw(self, window):
         self.center_child(window)
         self.child.draw(window)
