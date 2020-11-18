@@ -9,14 +9,14 @@ def get_logger(name):
         logger.setLevel(logging.INFO)
     # Add timestamps to log messages.
     if not logger.handlers:
-        console = logging.StreamHandler()
-        console.setLevel(logging.INFO)
+        file_handler = logging.FileHandler("run.log")
+        file_handler.setLevel(logging.INFO)
         formatter = logging.Formatter(
             fmt="[%(levelname)s %(asctime)s] %(name)s: %(message)s",
             datefmt="%m-%d %H:%M:%S",
         )
-        console.setFormatter(formatter)
-        logger.addHandler(console)
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
         logger.propagate = True
     return logger
 
