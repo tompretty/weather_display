@@ -4,3 +4,4 @@ from .debug_open_weather import DebugOpenWeatherApi
 from .logged import LoggedApi
 from .open_weather import OpenWeatherApi
 from .retry import RetryApi
+from .swt_cached import SwtCachedApi
