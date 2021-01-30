@@ -3,7 +3,7 @@ import time
 
 from dotenv import load_dotenv
 
-from api import LoggedApi, OpenWeatherApi, RetryApi, SwtCachedApi
+from api import LoggedApi, OpenWeatherApi, RetryApi, SwrCachedApi
 from data import (
     OpenWeatherSunsetDataSource,
     OpenWeatherTempDataSource,
@@ -28,7 +28,7 @@ API_CACHE_TIME = int(os.getenv("API_CACHE_TIME", default=DEFAULT_API_CACHE_TIME)
 API_MAX_TRIES = int(os.getenv("API_MAX_TRIES", default=DEFAULT_API_MAX_TRIES))
 API_RETRY_DELAY = int(os.getenv("API_RETRY_DELAY", default=DEFAULT_API_RETRY_DELAY))
 
-open_weather_api = SwtCachedApi(
+open_weather_api = SwrCachedApi(
     api=RetryApi(
         api=LoggedApi(
             api=OpenWeatherApi(),
