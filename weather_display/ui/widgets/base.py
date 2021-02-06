@@ -1,7 +1,7 @@
 from typing import Optional, Tuple
 
-from data import DataSource
-from ui.windows import Window
+from ...data import DataSource
+from ..windows import Window
 
 
 class Widget:

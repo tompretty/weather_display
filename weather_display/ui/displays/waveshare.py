@@ -1,6 +1,6 @@
 from PIL import Image  # type: ignore
-from ui.windows import Window
 
+from ..windows import Window
 from .base import Display
 
 

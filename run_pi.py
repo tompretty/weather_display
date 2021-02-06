@@ -1,28 +1,29 @@
 import os
-import time
 
 from dotenv import load_dotenv
 
-from api import LoggedApi, OpenWeatherApi, RetryApi, SwrCachedApi
-from data import (
+from weather_display.api import LoggedApi, OpenWeatherApi, RetryApi, SwrCachedApi
+from weather_display.data import (
     OpenWeatherSunsetDataSource,
     OpenWeatherTempDataSource,
     OpenWeatherWeatherDataSource,
 )
-from log import CompositeLogger, ConsoleLogger, EmailLogger
-from ui.displays import WaveshareEpdDisplay
-from ui.widgets import CurrentWeatherWidget, SunsetWidget, TabbedWidget
-from ui.windows import PilWindow
+from weather_display.log import CompositeLogger, ConsoleLogger, EmailLogger
+from weather_display.schedule import Scheduler, Time
+from weather_display.schedule.schedules import ConstantSchedule, LoopingSchedule
+from weather_display.ui.displays import WaveshareEpdDisplay
+from weather_display.ui.widgets import BlankWidget, CurrentWeatherWidget, SunsetWidget
+from weather_display.ui.windows import PilWindow
 
 load_dotenv()
 
-DEFAULT_UI_UPDATE_INTERVAL = 30
+DEFAULT_SCHEDULE_INTERVAL = 30
 DEFAULT_API_CACHE_TIME = 300
 DEFAULT_API_MAX_TRIES = 10
 DEFAULT_API_RETRY_DELAY = 10
 
-UI_UPDATE_INTERVAL = int(
-    os.getenv("UI_UPDATE_INTERVAL", default=DEFAULT_UI_UPDATE_INTERVAL)
+SCHEDULE_INTERVAL = int(
+    os.getenv("SCHEDULE_INTERVAL", default=DEFAULT_SCHEDULE_INTERVAL)
 )
 API_CACHE_TIME = int(os.getenv("API_CACHE_TIME", default=DEFAULT_API_CACHE_TIME))
 API_MAX_TRIES = int(os.getenv("API_MAX_TRIES", default=DEFAULT_API_MAX_TRIES))
@@ -40,24 +41,44 @@ open_weather_api = SwrCachedApi(
     cache_time_in_seconds=API_CACHE_TIME,
 )
 
-window = PilWindow(width=264, height=176)
-widget = TabbedWidget(
-    children=[
-        CurrentWeatherWidget(
-            temperature_data_source=OpenWeatherTempDataSource(api=open_weather_api),
-            weather_data_source=OpenWeatherWeatherDataSource(api=open_weather_api),
+scheduler = Scheduler(
+    schedule_interval=SCHEDULE_INTERVAL,
+    schedules=[
+        LoopingSchedule(
+            start_time=Time(hours=7, minutes=30),
+            end_time=Time(hours=22, minutes=30),
+            widgets=[
+                CurrentWeatherWidget(
+                    temperature_data_source=OpenWeatherTempDataSource(
+                        api=open_weather_api
+                    ),
+                    weather_data_source=OpenWeatherWeatherDataSource(
+                        api=open_weather_api
+                    ),
+                ),
+                SunsetWidget(
+                    data_source=OpenWeatherSunsetDataSource(api=open_weather_api)
+                ),
+            ],
         ),
-        SunsetWidget(data_source=OpenWeatherSunsetDataSource(api=open_weather_api)),
-    ]
+        ConstantSchedule(
+            start_time=Time(hours=0, minutes=0),
+            end_time=Time(hours=24, minutes=0),
+            widget=BlankWidget(size=(264, 176)),
+        ),
+    ],
 )
+
+window = PilWindow(width=264, height=176)
+
 display = WaveshareEpdDisplay()
 display.init()
 
 
 while True:
-    window.clear()
-
-    widget.draw(window)
-    display.draw(window)
-
-    time.sleep(UI_UPDATE_INTERVAL)
+    widget = scheduler.get_current_widget()
+    if widget:
+        window.clear()
+        widget.draw(window)
+        display.draw(window)
+    scheduler._sleep_until_next_update()

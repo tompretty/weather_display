@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from ui.windows import Window
+from ..windows import Window
 
 
 class Display(ABC):
