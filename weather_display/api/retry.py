@@ -1,8 +1,6 @@
 import time
 from typing import Any
 
-from log.base import Logger
-
 from .base import Api
 
 
