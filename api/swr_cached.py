@@ -5,8 +5,8 @@ from .base import Api
 from .cached import CachedApi
 
 
-class SwtCachedApi(CachedApi):
-    """SWT Cached API - Wraps an API to provide stale-while-revalidate caching.
+class SwrCachedApi(CachedApi):
+    """SWR Cached API - Wraps an API to provide stale-while-revalidate caching.
 
     Caches the response for `cache_time_in_seconds` seconds. After which,
     subsequent calls to `fetch_latest` will kick off a refresh in the background
