@@ -12,7 +12,7 @@ isort==4.3.21
 pathspec==0.8.0
 Pillow==7.1.2
 pprintpp==0.4.0
-Pygments==2.6.1
+Pygments==2.7.4
 python-dotenv==0.13.0
 regex==2020.4.4
 requests==2.23.0
