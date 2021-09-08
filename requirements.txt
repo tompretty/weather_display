@@ -10,7 +10,7 @@ commonmark==0.9.1
 idna==2.9
 isort==4.3.21
 pathspec==0.8.0
-Pillow==7.1.2
+Pillow==8.3.2
 pprintpp==0.4.0
 Pygments==2.6.1
 python-dotenv==0.13.0
